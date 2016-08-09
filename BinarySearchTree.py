@@ -11,15 +11,12 @@ class Node(object):
         if self.item == new_item:
             print('Item already exist!')
             return False
-        elif self.item > new_item:
-            current_child = self.left_child
-            if current_child:
-                return current_child.insertNode(new_item)
-            else:
-                current_child = Node(new_item)
-                return True
         else:
-            current_child = self.right_child
+            if self.item > new_item:
+                current_child = self.left_child
+            else:
+                current_child = self.right_child
+            
             if current_child:
                 return current_child.insertNode(new_item)
             else:
@@ -29,16 +26,14 @@ class Node(object):
     def find(self,an_item):
         if self.item == an_item:
             return True
-        elif self.item > an_item:
-            current_child = self.left_child
+        else:
+            if self.item > an_item:
+                current_child = self.left_child
+            else:
+                current_child = self.right_child
+                
             if current_child:
                 return current_child.find(an_item)
-            else:
-                return False
-        else:
-            current_child = self.right_child
-            if current_child:
-                return curretn_child.find(an_item)
             else:
                 return False
             
