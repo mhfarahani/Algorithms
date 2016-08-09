@@ -1,3 +1,3 @@
 # Algorithms
 
-Python code of basic algorithms.
+Python code of some basic algorithms.
