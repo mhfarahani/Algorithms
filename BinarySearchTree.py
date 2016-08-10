@@ -39,6 +39,44 @@ class Node(object):
             else:
                 return False
 
+    def delNode(self,item,parent,side):
+        if self.item == item:
+            if self.right_child:
+                current_node = self.right_child
+                parent = self
+                while current_node.left_child:
+                    parent = current_node
+                    current_node = current_node.left_child
+                if current_node:
+                    self.item = current_node.item
+                    current_node.item = None
+                    parent.left_child = None
+                    return True
+                else:
+                    self.__class__ = self.right_child.__class__
+                    self.__dict__ = self.right_child.__dict__
+                    return True
+            elif self.left_child:
+                self.__class__ = self.left_child.__class__
+                self.__dict__ = self.left_child .__dict__
+                return True
+            else:
+                self.item = None
+                if parent:
+                    if side == 'left':
+                        parent.left_child = None
+                    else:
+                        parent.right_child = None
+                    return True
+        elif self.left_child or self.right_child:
+            parent = self
+            if item > self.item:
+                return self.right_child.delNode(item,parent,'right')
+            else:
+                return self.left_child.delNode(item,parent,'left')
+        else:
+            return False
+
     def traversal(self,method):
         if self:
             if method == 'preorder':
@@ -50,7 +88,7 @@ class Node(object):
             if self.right_child:
                 self.right_child.traversal(method)
             if method == 'postorder':
-                print(self.item) 
+                print(self.item)
 
 
 class BinaryTree(object):
@@ -68,6 +106,16 @@ class BinaryTree(object):
     def isin(self,item):
         if self.root:
             return self.root.find(item)
+        else:
+            return False
+
+    def remove(self,item):
+        if self.root:
+            if self.root.item == item:
+                self.root = None
+                return True
+            else:
+                return self.root.delNode(item,None,None)
         else:
             return False
 
@@ -100,13 +148,13 @@ class BinaryTree(object):
 tree = BinaryTree()
 print(tree.insert(24))
 print(tree.insert(12))
-print(tree.insert(4))
-print(tree.insert(12))
 print(tree.insert(55))
-print(tree.insert(33))
-print('---')
-print(tree.isin(23))
-print(tree.isin(55))
+print(tree.insert(4))
+print('Is 55 in tree? ',tree.isin(55))
+print(tree.insert(3))
+print(tree.insert(65))
+print(tree.insert(60))
+print(tree.insert(45))
+print(tree.remove(2))
+print(tree.remove(55))
 tree.preorderTraversal()
-tree.postorderTraversal()
-tree.inorderTraversal()
