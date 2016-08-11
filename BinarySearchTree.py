@@ -1,13 +1,17 @@
 ## Binary Search Tree Algorithm
 
 class Node(object):
-    ''' '''
+    ''' A node class to store each element of the binary tree.
+        The methods in this class perform main operations of 
+        the treeincluding insertion, deletion, and find using 
+        recursion approach'''
     def __init__ (self,item):
         self.item = item
         self.left_child = None
         self.right_child = None
 
     def insertNode(self,new_item):
+        ''' Insert method '''
         if self.item == new_item:
             print('Item already exist!')
             return False
@@ -26,6 +30,7 @@ class Node(object):
                     return True
 
     def find(self,an_item):
+        ''' Checks if a node exist '''
         if self.item == an_item:
             return True
         else:
@@ -40,6 +45,8 @@ class Node(object):
                 return False
 
     def delNode(self,item,parent,side):
+        ''' Delete nodes from binary tree such that the tree-balance
+            is preserved'''
         if self.item == item:
             if self.right_child:
                 current_node = self.right_child
@@ -78,6 +85,7 @@ class Node(object):
             return False
 
     def traversal(self,method):
+        '''Traverses the tree and write the nodes in the requested format '''
         if self:
             if method == 'preorder':
                 print(self.item)
