@@ -35,7 +35,25 @@ def insertionSort(alist):
             alist[j],alist[j-1]=alist[j-1],alist[j]
             j -= 1
     return alist
-            
+
+# Shell Sort
+# O(n^1.5) to O(n^2)
+
+def shellSort(alist):
+    lenght = len(alist)
+    gap = lenght //2 
+    while gap > 0:
+        for i in range(lenght-gap):
+            j = i+gap
+            while j > gap-1 and alist[j-gap] > alist[j]:
+                alist[j-gap],alist[j]=alist[j],alist[j-gap]
+                j -= gap
+        gap = gap//2
+    return alist
+                
+        
+
+
 
 alist = [54,26,93,17,77,31,44,55,20]
-print(insertionSort(alist))
+print(shellSort(alist))
