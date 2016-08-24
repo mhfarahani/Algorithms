@@ -12,6 +12,7 @@ def bubleSort(alist):
             return alist
     return alist
 
+
 ## Selection Sort
 # O(n^2)
 def selectionSort(alist):
@@ -25,6 +26,7 @@ def selectionSort(alist):
             alist[j],alist[max_index]=alist[max_index],alist[j]
     return alist
 
+
 # Insertion Sort
 # O(n^2)
 def insertionSort(alist):
@@ -36,9 +38,9 @@ def insertionSort(alist):
             j -= 1
     return alist
 
+
 # Shell Sort
 # O(n^1.5) to O(n^2)
-
 def shellSort(alist):
     lenght = len(alist)
     gap = lenght //2 
@@ -50,8 +52,7 @@ def shellSort(alist):
                 j -= gap
         gap = gap//2
     return alist
-                
-import pdb
+
 
 # Merge Sort:
 # O(nlogn)
