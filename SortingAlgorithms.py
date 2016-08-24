@@ -51,9 +51,38 @@ def shellSort(alist):
         gap = gap//2
     return alist
                 
-        
+import pdb
 
+# Merge Sort:
+# O(nlogn)
+def mergeSort(alist):
+    if len(alist)< 2:
+        return alist
+    else:
+        pdb.set_trace()
+        isplit = len(alist)//2
+        print(len(alist),isplit)
+        leftlist = mergeSort(alist[:isplit])
+        rightlist = mergeSort(alist[isplit:])
+        
+        ileft = iright = 0
+        while ileft < len(leftlist)-1 and iright < len(rightright)-1:
+            if leftlist[ileft] < rightlist[iright]:
+                alist[i] = leftlist[ileft]
+                ileft += 1
+            else:
+                alist[i] = rightlist[iright]
+                iright += 1
+        else:
+            if ileft != len(leftlist)-1:
+                alist.append(leftlist[ileft:])
+            else:
+                alist.append(rightlist[iright:])
+                
+        return alist
+
+    
 
 
 alist = [54,26,93,17,77,31,44,55,20]
-print(shellSort(alist))
+print(mergeSort(alist))
