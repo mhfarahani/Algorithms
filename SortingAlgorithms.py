@@ -59,27 +59,29 @@ def mergeSort(alist):
     if len(alist)< 2:
         return alist
     else:
-        pdb.set_trace()
         isplit = len(alist)//2
-        print(len(alist),isplit)
         leftlist = mergeSort(alist[:isplit])
         rightlist = mergeSort(alist[isplit:])
         
-        ileft = iright = 0
-        while ileft < len(leftlist)-1 and iright < len(rightright)-1:
+        ileft = iright = ilist = 0
+        while ileft < len(leftlist) and iright < len(rightlist):
             if leftlist[ileft] < rightlist[iright]:
-                alist[i] = leftlist[ileft]
+                alist[ilist] = leftlist[ileft]
                 ileft += 1
             else:
-                alist[i] = rightlist[iright]
+                alist[ilist] = rightlist[iright]
                 iright += 1
-        else:
-            if ileft != len(leftlist)-1:
-                alist.append(leftlist[ileft:])
-            else:
-                alist.append(rightlist[iright:])
-                
-        return alist
+            ilist += 1
+
+        while ileft < len(leftlist):
+            alist[ilist] = leftlist[ileft]
+            ileft += 1
+            ilist += 1
+        while iright < len(rightlist):
+             alist[ilist]=rightlist[iright]
+             iright += 1
+             ilist += 1
+    return alist
 
     
 
