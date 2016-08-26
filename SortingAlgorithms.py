@@ -87,7 +87,6 @@ def mergeSort(alist):
 
 # Quick Sort
 # O(nlogn) to O(n^2)
-
 def quickSort(alist):
     if len(alist) < 2:
         return alist
