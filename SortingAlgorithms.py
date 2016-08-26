@@ -84,8 +84,34 @@ def mergeSort(alist):
              ilist += 1
     return alist
 
+
+# Quick Sort
+# O(nlogn) to O(n^2)
+
+def quickSort(alist):
+    if len(alist) < 2:
+        return alist
+    else:
+        ipivit = findPivit(alist)
+        if ipivit != 0:
+            alist[ipivit],alist[0] = alist[0],alist[ipivit]
+            ipivit = 0
+        left_list = quickSort([x for x in alist[1:] if x<=alist[0]])
+        right_list = quickSort([x for x in alist[1:] if x>alist[0]])
+        return left_list +[alist[0]]+ right_list
+
+def findPivit(alist):
+    imid = len(alist)//2
+    if alist[0] > alist[-1]:
+        if alist[0] > alist[imid]:
+            return imid
+        else:
+            return 0
+    elif alist[-1] > alist[imid]:
+        return imid
+    else:
+        return -1
     
 
-
 alist = [54,26,93,17,77,31,44,55,20]
-print(mergeSort(alist))
+print(quickSort(alist))
