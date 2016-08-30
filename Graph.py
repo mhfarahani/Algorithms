@@ -34,7 +34,7 @@ class Graph(object):
         self.graph_size = 0
 
     def addVertex(self,key):
-        if key not in self.vetices.keys():
+        if key not in self.vertices.keys():
             self.vertices[key] = Vertex(key)
             self.graph_size += 1
             return True
@@ -54,7 +54,24 @@ class Graph(object):
         return self.vertices[front_key].addNeighbor(self.vertices[tail_key],weight)
 
     def getVertices(self):
-        return self.vertices.keys()
+        return [x for x in self.vertices.keys()]
             
 
     
+
+g = Graph()
+for i in range(6):
+    print(g.addVertex(i))
+print(g.getVertices())
+print(g.addEdge(0,1,5))
+print(g.addEdge(0,5,2))
+print(g.addEdge(1,2,4))
+print(g.addEdge(2,3,9))
+print(g.addEdge(3,4,7))
+print(g.addEdge(3,5,3))
+print(g.addEdge(4,0,1))
+print(g.addEdge(5,4,8))
+print(g.addEdge(5,2,1))
+for _ ,v in g.vertices.items():
+    for w in v.getConnections():
+        print("( %s , %s )" % (v.getId(), w.getId()))
