@@ -8,7 +8,7 @@ class Vertex(object):
         self.id = key
         self.connections = {}
 
-    def addNeighbor(self,nbr,weight=0):
+    def addConnection(self,nbr,weight=0):
         self.connections[nbr] = weight
         return True
 
@@ -18,8 +18,8 @@ class Vertex(object):
     def getId(self):
         return self.id
 
-    def getWeight(self):
-        return self.weight
+    def getWeight(self,nbr):
+        return self.connections[nbr]
 
     def getDegree(self):
         return len(self.connections)
@@ -38,7 +38,9 @@ class Graph(object):
             self.vertices[key] = Vertex(key)
             self.graph_size += 1
             return True
-        return False
+        else:
+            print('Key exist')
+            return False
 
     def getVertex(self,key):
         if key in self.vertices.keys():
@@ -51,12 +53,15 @@ class Graph(object):
             _ = self.addVertex(front_key)
         elif tail_key not in self.vertices.keys():
             _ = self,addVertex(tail_key)
-        return self.vertices[front_key].addNeighbor(self.vertices[tail_key],weight)
+        return self.vertices[front_key].addConnection(tail_key,weight)
 
     def getVertices(self):
         return [x for x in self.vertices.keys()]
             
-
+    def __structure__(self):
+        for v in self.vertices.values():
+            for key in v.getConnections():
+                print ('(%s ,%s)' % (v.getId(),key))
     
 
 g = Graph()
@@ -72,6 +77,4 @@ print(g.addEdge(3,5,3))
 print(g.addEdge(4,0,1))
 print(g.addEdge(5,4,8))
 print(g.addEdge(5,2,1))
-for _ ,v in g.vertices.items():
-    for w in v.getConnections():
-        print("( %s , %s )" % (v.getId(), w.getId()))
+g.__structure__()
