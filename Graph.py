@@ -2,18 +2,22 @@
 # Adjacency List
 # This implementation also works for weighted graphs.
 
+from collections import deque
+
 class Vertex(object):
 
     def __init__ (self,key):
         self.id = key
         self.connections = {}
+        self.distance = 0
+        self.pred = None
 
     def addConnection(self,nbr,weight=0):
         self.connections[nbr] = weight
         return True
 
     def getConnections(self):
-        return self.connections.keys()
+        return list(self.connections.keys())
 
     def getId(self):
         return self.id
@@ -26,6 +30,18 @@ class Vertex(object):
 
     def __structure__(self):
         return str(self.id)+ ' connected to: ' + str([x for x in self.connections.keys()])
+
+    def setDistance(self,d):
+        self.distance = d
+
+    def setPred(self,p):
+        self.pred = p
+
+    def getDistance(self):
+        return self.distance
+
+    def getPred(self):
+        return self.pred
 
 class Graph(object):
 
@@ -56,12 +72,40 @@ class Graph(object):
         return self.vertices[front_key].addConnection(tail_key,weight)
 
     def getVertices(self):
-        return [x for x in self.vertices.keys()]
+        return list(self.vertices.keys())
             
     def __structure__(self):
         for v in self.vertices.values():
             for key in v.getConnections():
                 print ('(%s ,%s)' % (v.getId(),key))
+
+    def getDistance(self,start,end):
+        self.bfs(start)
+        return self.getVertex(end).distance
+
+    def bfs(self,start_key):
+        q = deque()
+        colors = {x:0 for x in self.getVertices()}
+        v = self.vertices[start_key]
+        v.setPred(start_key)
+        q.append(v)
+        while len(q) > 0:
+            vfront = q.pop()
+            for key in vfront.getConnections():
+                if colors[key] == 0:
+                    v = g.getVertex(key)
+                    q.append(v)
+                    colors[key] = 1
+                    v.setPred(vfront.getId())
+                    v.setDistance(vfront.getDistance()+1)
+            colors[vfront.getId()] =2
+        #for v in self.vertices.values():
+        #    print('distance between vertex %s and %s is %i edge(s)'% (start_key,v.getId(),v.distance))
+
+import pdb
+
+
+                
     
 
 g = Graph()
@@ -78,3 +122,5 @@ print(g.addEdge(4,0,1))
 print(g.addEdge(5,4,8))
 print(g.addEdge(5,2,1))
 g.__structure__()
+#g.bfs(2)
+print(g.getDistance(2,1))
