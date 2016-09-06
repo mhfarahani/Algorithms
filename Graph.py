@@ -1,6 +1,7 @@
 # Directed/Undirected Graphs
 # Adjacency List
 # This implementation also works for weighted graphs.
+# Includes Breadth First Search (BFS)
 
 from collections import deque
 
@@ -101,9 +102,6 @@ class Graph(object):
             colors[vfront.getId()] =2
         #for v in self.vertices.values():
         #    print('distance between vertex %s and %s is %i edge(s)'% (start_key,v.getId(),v.distance))
-
-import pdb
-
 
                 
     
